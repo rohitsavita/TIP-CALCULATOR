@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Splitter</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            width: 350px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        #result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #error {
+            color: red;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Bill Splitter</h1>
+
+        <label for="totalBill">Total Bill (₹)</label>
+        <input type="number" id="totalBill" placeholder="Enter total bill">
+
+        <label for="tip">Tip (%)</label>
+        <input type="number" id="tip" placeholder="Enter tip percentage">
+
+        <label for="people">Number of People</label>
+        <input type="number" id="people" placeholder="Enter number of people">
+
+        <button onclick="calculateBill()">Calculate</button>
+
+        <div id="error"></div>
+        <div id="result"></div>
+
+    </div>
+
+    <script>
+        function calculateBill() {
+
+            let totalBill = parseFloat(document.getElementById("totalBill").value);
+            let tip = parseFloat(document.getElementById("tip").value);
+            let people = parseInt(document.getElementById("people").value);
+
+            let error = document.getElementById("error");
+            let result = document.getElementById("result");
+
+            error.innerHTML = "";
+            result.innerHTML = "";
+
+            if (isNaN(totalBill) || totalBill <= 0) {
+                error.innerHTML = "Please enter a valid total bill.";
+                return;
+            }
+
+            if (isNaN(tip) || tip < 0) {
+                error.innerHTML = "Please enter a valid tip.";
+                return;
+            }
+
+            if (isNaN(people) || people <= 0) {
+                error.innerHTML = "Please enter a valid number of people.";
+                return;
+            }
+
+            let tp = (totalBill * tip) / 100;
+
+            let s2 = (totalBill + tp) / people;
+
+            result.innerHTML =
+                "Each person should pay ₹" + s2.toFixed(2);
+        }
+    </script>
+
+</body>
+</html>
+
